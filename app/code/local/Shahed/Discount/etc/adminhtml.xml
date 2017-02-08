@@ -1,0 +1,61 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Shahed Jamal
+ * @category    Magento Module
+ * @package     Discount
+ * @copyright   Copyright (c) 2017 Shahed Jamal.
+ * @purpose     admin menu xml config.
+ * @author      Shahed Jamal
+ **/
+-->
+<config>
+    <menu>
+        <!-- Admin panel menu created as 'Discount' as top level menu and 'Discount Type' as sub menu -->
+        <discount translate="title" module="shahed_discount">
+            <!-- Menu text that will be displayed -->
+            <title>Discount</title><!-- Menu text that will be displayed as top menu-->
+            <sort_order>101</sort_order>
+            <!-- Starting of sub menu -->
+            <children>
+                <type translate="title" module="shahed_discount">
+                    <title>Discount</title><!-- Menu text that will be displayed -->
+                    <action>adminhtml/discount</action><!-- URL of the menu item to link to -->
+                    <sort_order>0</sort_order>
+                </type>
+                <!--<history translate="title" module="shahed_discount">-->
+                    <!--<title>View History</title>&lt;!&ndash; Menu text that will be displayed &ndash;&gt;-->
+                    <!--<action>adminhtml/history</action>&lt;!&ndash; URL of the menu item to link to &ndash;&gt;-->
+                    <!--<sort_order>3</sort_order>-->
+                <!--</history>-->
+            </children>
+            <!-- End sub menu -->
+        </discount>
+    </menu>
+    <acl>
+        <resources>
+            <All>
+                <title>Allow Everything</title>
+            </All>
+            <admin>
+                <children>
+                    <discount translate="title" module="shahed_discount">
+                        <!-- This is how the ACL text will be displayed on System > Permissions > Roles > Role > Role Resources -->
+                        <title>Discount</title>
+                        <sort_order>101</sort_order>
+                        <children>
+                            <type translate="title">
+                                <title>Discount Type</title>
+                                <sort_order>0</sort_order>
+                            </type>
+                            <!--<history translate="title">-->
+                                <!--<title>View History</title>-->
+                                <!--<sort_order>3</sort_order>-->
+                            <!--</history>-->
+                        </children>
+                    </discount>
+                </children>
+            </admin>
+        </resources>
+    </acl>
+</config>

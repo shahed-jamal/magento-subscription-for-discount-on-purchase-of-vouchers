@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Shahed Jamal
+ * @category    Magento Module
+ * @package     Discount
+ * @copyright   Copyright (c) 2017 Shahed Jamal.
+ * @purpose     Local codepool xml config.
+ * @author      Shahed Jamal
+ **/
+-->
+<config>
+    <modules>
+        <Shahed_Discount>
+            <active>true</active>
+            <codePool>local</codePool>
+        </Shahed_Discount>
+    </modules>
+</config>

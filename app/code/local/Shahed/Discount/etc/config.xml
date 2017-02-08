@@ -1,0 +1,145 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Shahed Jamal
+ * @category    Magento Module
+ * @package     Discount
+ * @copyright   Copyright (c) 2017 Shahed Jamal.
+ * @purpose     xml config.
+ * @author      Shahed Jamal
+ **/
+-->
+<config>
+    <modules>
+        <Shahed_Discount>
+            <version>0.1.1</version>
+        </Shahed_Discount>
+    </modules>
+    <global>
+        <!-- Define helper directory -->
+        <helpers>
+            <shahed_discount>
+                <class>Shahed_Discount_Helper</class>
+            </shahed_discount>
+        </helpers>
+        <!-- Set a block definition and lookup directory -->
+        <blocks>
+            <shahed_discount>
+                <class>Shahed_Discount_Block</class>
+            </shahed_discount>
+        </blocks>
+        <models>
+            <shahed_discount>
+                <class>Shahed_Discount_Model</class> <!-- Location of all model class files -->
+                <resourceModel>discount_resource</resourceModel> <!-- Location of resource model to create custom table-->
+            </shahed_discount>
+            <!-- Resource model use to create a database table -->
+            <discount_resource>
+                <class>Shahed_Discount_Model_Resource</class>
+                <deprecatedNode>banners_resource_eav_mysql4</deprecatedNode>
+                <entities>
+                    <!-- Define table, the table is shahed_discount -->
+                    <!-- After define entity, can call it with model by calling shahed_discount/discount -->
+                    <discount>
+                        <table>shahed_discount</table> <!-- Actula table name in sql -->
+                    </discount>
+                    <!-- Define table, the table is shahed_discount_history -->
+                    <!-- After define entity, can call it with model by calling shahed_discount/history -->
+                    <history>
+                        <table>shahed_discount_history</table>
+                    </history>
+                </entities>
+            </discount_resource>
+            <sales>
+                <rewrite>
+                    <order>Shahed_Discount_Model_Order</order>
+                </rewrite>
+            </sales>
+        </models>
+        <!-- Define resource setup script -->
+        <resources>
+            <shahed_discount_setup>
+                <setup>
+                    <module>Shahed_Discount</module>
+                    <class>Shahed_Discount_Model_Resource_Setup</class>
+                </setup>
+            </shahed_discount_setup>
+        </resources>
+        <events>
+            <sales_order_status_after>
+                <observers>
+                    <Shahed_Discount_Model_Observer>
+                        <type>singleton</type>
+                        <class>shahed_discount/observer</class>
+                        <method>saveOrderDetailsInHistory</method>
+                    </Shahed_Discount_Model_Observer>
+                </observers>
+            </sales_order_status_after>
+            <catalog_product_get_final_price>
+                <observers>
+                    <Shahed_Discount_Model_Observer>
+                        <type>singleton</type>
+                        <class>shahed_discount/observer</class>
+                        <method>getFinalProductPrice</method>
+                    </Shahed_Discount_Model_Observer>
+                </observers>
+            </catalog_product_get_final_price>
+            <catalog_product_collection_load_after>
+                <observers>
+                    <Shahed_Discount_Model_Observer>
+                        <type>singleton</type>
+                        <class>shahed_discount/observer</class>
+                        <method>getFinalProductPriceList</method>
+                    </Shahed_Discount_Model_Observer>
+                </observers>
+            </catalog_product_collection_load_after>
+            <sales_quote_add_item>
+                <observers>
+                    <Shahed_Discount_Model_Observer>
+                        <type>singleton</type>
+                        <class>shahed_discount/observer</class>
+                        <method>restrictCart</method>
+                    </Shahed_Discount_Model_Observer>
+                </observers>
+            </sales_quote_add_item>
+            <checkout_allow_guest>
+                <observers>
+                    <Shahed_Discount_Model_Observer>
+                        <type>singleton</type>
+                        <class>shahed_discount/observer</class>
+                        <method>restrictGuestCheckout</method>
+                    </Shahed_Discount_Model_Observer>
+                </observers>
+            </checkout_allow_guest>
+        </events>
+    </global>
+    <admin>
+        <routers>
+            <adminhtml>
+                <args>
+                    <!-- Load Adminhtml controllers -->
+                    <modules>
+                        <shahed_discount before="Mage_Adminhtml">Shahed_Discount_Adminhtml</shahed_discount>
+                    </modules>
+                </args>
+            </adminhtml>
+        </routers>
+    </admin>
+    <adminhtml>
+        <layout>
+            <updates>
+                <shahed_discount>
+                    <!-- Adminhtml xml layout-->
+                    <file>shahed/discount.xml</file>
+                </shahed_discount>
+            </updates>
+        </layout>
+    </adminhtml>
+    <default>
+        <shahed_discount>
+            <settings>
+                <enabled>1</enabled>
+            </settings>
+        </shahed_discount>
+    </default>
+</config>
